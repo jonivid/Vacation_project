@@ -8,6 +8,7 @@ async function register(userRegistrationDetails) {
     let parameters = [userRegistrationDetails.firstName, userRegistrationDetails.lastName, userRegistrationDetails.userName,
     userRegistrationDetails.password, userRegistrationDetails.isAdmin]
     let userRegistrationResult = await connection.executeWithParameters(sql, parameters)
+    return userRegistrationResult.insertId;
 }
 async function login(userLoginDetails) {
     let sql = `SELECT id FROM users where user_name =? and password = ?;`
@@ -28,4 +29,26 @@ async function deleteUser(id) {
     await connection.executeWithParameters(sql, parameters)
 }
 
-module.exports = { register, update, login, deleteUser }
+async function isUserNameExist(userName) {
+    // console.log(userName.userName);
+    let sql = `SELECT user_name from users where user_name=?`
+    parameters = [userName.userName]
+    const userExistResult = await connection.executeWithParameters(
+        sql,
+        parameters
+    );
+
+    console.log('userExistResult: ' + userExistResult);
+
+    if (userExistResult == null || userExistResult.length === 0) {
+        console.log('doesnt exist');
+        return false;
+    }
+    console.log('exist');
+
+    return true;
+
+
+}
+
+module.exports = { register, update, login, deleteUser, isUserNameExist }

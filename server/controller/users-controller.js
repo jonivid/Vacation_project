@@ -6,15 +6,17 @@ const router = express.Router()
 
 
 //register user
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     try {
         console.log('register');
         const userRegistrationDetails = req.body;
-        usersLogic.register(userRegistrationDetails)
+        const id = await usersLogic.register(userRegistrationDetails)
+        res.json(id)
 
     }
     catch (err) {
         console.error(err);
+        res.json(err)
     }
 })
 
@@ -29,6 +31,7 @@ router.post('/', (req, res) => {
     }
     catch (err) {
         console.error(err);
+        res.json(err)
     }
 })
 //login user
