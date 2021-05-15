@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-////update password
+////update password // need more work
 
 router.post('/', (req, res) => {
     try {
