@@ -38,6 +38,8 @@ export const Register = () => {
 
     return (
         <div>
+            <h1>Register Page</h1>
+
             <input type="text" name='firstName' placeholder='enter first Name' onChange={onFirstNameChange} /><br />
             <input type="text" name='lastName' placeholder='enter last name' onChange={onLastNameChange} /><br />
             <input type="text" name='username' placeholder='User Name' onChange={onUserNameChanged} /><br />

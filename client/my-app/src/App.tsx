@@ -20,10 +20,10 @@ function App() {
   return (
     <Router>
       <div>
-        <aside><Menu /></aside>
         <main>
           <Routing />
         </main>
+        <aside><Menu /></aside>
 
       </div>
 

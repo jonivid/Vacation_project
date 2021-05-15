@@ -22,6 +22,7 @@ export const Login = () => {
 
     return (
         <div>
+            <h1>Login Page</h1>
             <input type="text" name='username' placeholder='User Name' onChange={onUserNameChanged} /><br />
             <input type="password" name='password' placeholder='Password' onChange={onPasswordChanged} /><br />
             <input type="button" value="Login" onClick={onRegisterClick} />
