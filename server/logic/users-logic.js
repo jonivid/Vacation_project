@@ -7,6 +7,12 @@ const config = require('../config.json');
 const saltRight = "asdasdasdas";
 const saltLeft = "--mnlcfdsfsds;@!$ ";
 
+
+async function getAll() {
+    const users = await usersDao.getAll()
+    return (users)
+}
+
 async function register(userRegistrationDetails) {
     validateUserDetails(userRegistrationDetails);
     console.log(userRegistrationDetails);
@@ -67,4 +73,4 @@ function isEmailFormat(email) {
     const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     return (emailRegexp.test(emailToValidate));
 }
-module.exports = { register, login, update, deleteUser }
+module.exports = { register, login, update, deleteUser, getAll }

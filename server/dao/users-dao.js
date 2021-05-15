@@ -1,5 +1,10 @@
 const connection = require('./connection-wrapper')
+async function getAll() {
+    let sql = `SELECT * from users`
+    const users = await connection.execute(sql)
+    return users
 
+}
 
 async function register(userRegistrationDetails) {
     let sql = `INSERT INTO users (first_name, last_name, user_name, password, is_admin)
@@ -51,4 +56,4 @@ async function isUserNameExist(userName) {
 
 }
 
-module.exports = { register, update, login, deleteUser, isUserNameExist }
+module.exports = { register, update, login, deleteUser, isUserNameExist, getAll }

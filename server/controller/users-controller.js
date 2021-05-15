@@ -4,6 +4,18 @@ const router = express.Router()
 
 
 
+//get all user
+router.get('/', async (req, res) => {
+    try {
+        const users = await usersLogic.getAll()
+        res.json(users)
+
+    }
+    catch (err) {
+        console.error(err);
+    }
+
+})
 
 //register user
 router.post('/', async (req, res) => {
@@ -37,6 +49,7 @@ router.post('/', (req, res) => {
 //login user
 router.post('/login', async (req, res) => {
     const userLoginDetails = req.body
+    console.log(userLoginDetails);
     try {
         let succsessfullyLoginData = await usersLogic.login(userLoginDetails)
         res.json(succsessfullyLoginData)
