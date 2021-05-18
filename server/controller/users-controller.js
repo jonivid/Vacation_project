@@ -52,6 +52,7 @@ router.post('/login', async (req, res) => {
     console.log(userLoginDetails);
     try {
         let succsessfullyLoginData = await usersLogic.login(userLoginDetails)
+        console.log(succsessfullyLoginData);
         res.json(succsessfullyLoginData)
 
     } catch (err) {

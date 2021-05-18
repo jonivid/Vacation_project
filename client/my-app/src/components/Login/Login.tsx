@@ -15,8 +15,12 @@ export const Login = () => {
         setPassword(event.target.value)
     }
 
-    const onRegisterClick = () => {
-        const response = axios.post('http://localhost:3001/users/login', { userName, password })
+    const onLoginClicked = async () => {
+        const result = await (axios.post('http://localhost:3001/users/login', { userName, password }))
+        // console.log(result.data);
+        if (result.data) localStorage.setItem("user", JSON.stringify(result.data))
+
+
     }
 
 
@@ -25,7 +29,7 @@ export const Login = () => {
             <h1>Login Page</h1>
             <input type="text" name='username' placeholder='User Name' onChange={onUserNameChanged} /><br />
             <input type="password" name='password' placeholder='Password' onChange={onPasswordChanged} /><br />
-            <input type="button" value="Login" onClick={onRegisterClick} />
+            <input type="button" value="Login" onClick={onLoginClicked} />
 
         </div>
     )
