@@ -6,8 +6,8 @@ export const Menu = () => {
     return (
         <div>
 
-            <NavLink to='/users/login'>Login</NavLink><br />
-            <NavLink to='/users/register'>Register</NavLink>
+            {/* <NavLink to='/users/login'>Login</NavLink><br />
+            <NavLink to='/users/register'>Register</NavLink> */}
 
 
         </div>

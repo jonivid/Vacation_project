@@ -65,12 +65,21 @@ function validateUserDetails(userRegistrationDetails) {
         throw new Error(`password too long`)
     }
 }
-//we will built it later....
+function isEmailFormat(email) {
+
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return true
+    } else {
+        alert("please insert a valid mail")
+        return false
+    }
+}
 
 //yehonatan please finish the email validation!!!!!!!!
-function isEmailFormat(email) {
-    const emailToValidate = `${email}`;
-    const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    return (emailRegexp.test(emailToValidate));
-}
+// function isEmailFormat(email) {
+//     const emailToValidate = `${email}`;
+//     const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+//     return (emailRegexp.test(emailToValidate));
+// }
 module.exports = { register, login, update, deleteUser, getAll }
+
