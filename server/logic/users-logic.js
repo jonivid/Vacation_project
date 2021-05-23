@@ -33,12 +33,13 @@ async function update(userDetails) {
 async function login(userLoginDetails) {
     userLoginDetails.password = crypto.createHash("md5").update(saltLeft + userLoginDetails.password + saltRight).digest("hex");
     let userData = await usersDao.login(userLoginDetails)
-    let saltedUserName = saltLeft + userLoginDetails + saltRight
+    let saltedUserName = saltLeft + userLoginDetails.userName + saltRight
     const jwtToken = jwt.sign({ sub: saltedUserName }, config.secret)
     console.log("Token before adding to cache : " + jwtToken);
     console.log("User Data before adding to cache : " + JSON.stringify(userData));
-    cacheModule.set(jwtToken, userData)
-    let successfullLoginResponse = { token: jwtToken };
+    cacheModule.set(jwtToken, userData)//cache setter 
+    let successfullLoginResponse = { token: jwtToken, isAdmin: userData.isAdmin };
+    //need to return isAdmin or not inside successfullLoginResponse to navigate the to homepage or adminBoard
     return successfullLoginResponse;
 }
 

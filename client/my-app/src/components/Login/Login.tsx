@@ -3,9 +3,12 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import './login.css'
+import { useHistory } from 'react-router-dom'
 
 
 export const Login = () => {
+    const history = useHistory()
+
     const { register, handleSubmit } = useForm()
 
     const [userName, setUserName] = useState('')
@@ -21,18 +24,26 @@ export const Login = () => {
     }
 
     const onLoginClicked = async () => {
-        const result = await (axios.post('http://localhost:3001/users/login', { userName, password }))
-        // console.log(result.data);
-        if (result.data) localStorage.setItem("userToken", JSON.stringify(result.data))
-        // Add a request interceptor
-        const token = localStorage.getItem("userToken")
-        if (token) {
+        try {
+            const result = await (axios.post('http://localhost:3001/users/login', { userName, password }))
+            console.log(result);
+            let token = "Bearer " + result.data.token
+            // relevant if we refresh the page yet still want to stay logged in (loacl storage) => to be continue....
+            localStorage.setItem("userToken", token)
             axios.defaults.headers.common['Authorization'] = token;
-        } else {
-            axios.defaults.headers.common['Authorization'] = null;
-            /*if setting null does not remove `Authorization` header then try     
-            delete axios.defaults.headers.common['Authorization'];
-            */
+
+            if (result.data.isAdmin) {
+                //go to admin page
+                history.push('/admin')
+            }
+            else {
+                //go to customer page
+                history.push('/home');
+            }
+        }
+        catch (err) {
+            console.error(err)
+            alert('error faild login')
         }
     }
 

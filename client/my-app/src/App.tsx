@@ -47,11 +47,7 @@ function App() {
 
         </div>
         <div>
-          <ul>
-            <li>Argentina</li>
-            <li>Malta</li>
-            <li>Tokyo</li>
-          </ul>
+         
         </div>
 
 

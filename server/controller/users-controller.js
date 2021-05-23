@@ -1,6 +1,8 @@
 const express = require('express')
 const usersLogic = require('../logic/users-logic')
 const router = express.Router()
+let cacheModule = require("../logic/cache-module");
+
 
 
 
@@ -12,7 +14,8 @@ router.get('/', async (req, res) => {
 
     }
     catch (err) {
-        console.error(err);
+        console.error(err)
+        res.status(600).send(err.message)
     }
 
 })
@@ -28,13 +31,15 @@ router.post('/', async (req, res) => {
     }
     catch (err) {
         console.error(err);
-        res.json(err)
+        res.status(600).send(err.message)
     }
 })
 
 ////update password // need more work
 
 router.post('/', (req, res) => {
+    const id = cacheModule.extractUserDataFromCache(req).id
+    //we got the user id ===> need more work
     try {
         console.log('update');
         const userDetails = req.body;
@@ -43,12 +48,12 @@ router.post('/', (req, res) => {
     }
     catch (err) {
         console.error(err);
-        res.json(err)
+        res.status(600).send(err.message)
     }
 })
 //login user
 router.post('/login', async (req, res) => {
-    const userLoginDetails = req.body
+    const userLoginDetails = req.body;
     console.log(userLoginDetails);
     try {
         let succsessfullyLoginData = await usersLogic.login(userLoginDetails)
@@ -57,7 +62,7 @@ router.post('/login', async (req, res) => {
 
     } catch (err) {
         console.error(err)
-        res.status(401).send(err.message)
+        res.status(600).send(err.message)
 
     }
 })
@@ -71,11 +76,10 @@ router.delete('/', async (req, res) => {
     }
     catch (err) {
         console.error(err)
-        res.status(404).send(err.message)
+        res.status(600).send(err.message)
 
     }
 })
-
 
 
 module.exports = router
