@@ -52,22 +52,30 @@ export const Login = () => {
 
 
     return (
-        <div>
-            <form className="center" onSubmit={handleSubmit(onLoginClicked)}>
 
+        <body className="bodyLoginPage">
+
+            <div className="center">
                 <h1>Login Page</h1>
-                <div className="login-box">
-
-                    <div className="form-group">
-                        <label>Username</label><br />
-                        <input type="text" name='username' placeholder='User Name' onChange={onUserNameChanged} /><br />
-                        <label>Password</label> <br />
-                        <input type="password" name='password' placeholder='Password' onChange={onPasswordChanged} /><br />
-                        <button >Login</button>
+                <form onSubmit={handleSubmit(onLoginClicked)}>
+                    <div className="txtField">
+                        <input type="text" name='username' onChange={onUserNameChanged} />
+                        <span></span>
+                        <label>Username</label>
                     </div>
-                </div>
-            </form>
-        </div>
+                    <br />
+                    <div className="txtField">
+                        <input type="password" name='password' onChange={onPasswordChanged} />
+                        <span></span>
+                        <label>Password</label>
+                    </div>
+                    <button className="loginBtn" >Login</button>
+                    <div className="signUpLink">
+                        Not a member ? <a href="/users/register">Sign Up</a>
+                    </div>
+                </form>
+            </div >
+        </body>
     )
 
 }

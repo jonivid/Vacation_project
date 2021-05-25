@@ -4,3 +4,23 @@
     padding: 0;
     list-style: none;
 }
+.vacationDestenation{
+    color:rgb(117, 153, 201);
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.vacationDetails{
+    position: relative;
+    height: 80px;
+    overflow: hidden
+
+}
+.cardMain{
+    height: 500px;
+    margin: 50px;
+}
+.dateAndDetails{
+text-align: center;
+}

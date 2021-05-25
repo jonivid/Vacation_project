@@ -3,9 +3,10 @@ class VacationModel{
     public destenation!:string;
     public details!:string;
     public price!:string;
-    public startDate!:string;
-    public endDate!:string;
+    public start_date!:string;
+    public end_date!:string;
     public followers!:string;
+    public image!:string;
    
 }
 

@@ -8,24 +8,29 @@ interface VacationsProps {
 }
 
 export const VacationsCard = (props: VacationsProps): JSX.Element => {
+    console.log(props.vacation);
+
     return (
         <div className="wrapper">
 
-            <Card style={{ width: '18rem' }}>
+            <Card className="cardMain" style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={props.vacation.image} />
                 <Card.Body>
-                    <Card.Title>{props.vacation.destenation}</Card.Title>
+                    <Card.Title className="vacationDestenation">{props.vacation.destenation}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{props.vacation.price}$</Card.Subtitle>
-                    <Card.Text>
+                    <Card.Text className="vacationDetails">
                         {props.vacation.details}
                     </Card.Text>
+                    <div className="dateAndDetails">
                     <Card.Text>
-                        Start date: {props.vacation.startDate}
+                        Start date:{props.vacation.start_date}
                     </Card.Text>
                     <Card.Text>
-                        End date: {props.vacation.endDate}
+                        End date: {props.vacation.end_date}
                     </Card.Text>
-                    <Card.Link href="#">Card Link</Card.Link>
-                    <Card.Link href="#">Another Link</Card.Link>
+
+                        <Card.Link href="#">for more details</Card.Link>
+                    </div>
                 </Card.Body>
             </Card>
         </div>
