@@ -2,15 +2,17 @@ import React from 'react'
 import VacationModel from '../model/vacationModel.js'
 import Card from 'react-bootstrap/Card'
 import './vacationCard.css'
+import { Container, Row, Col } from 'reactstrap';
+
 
 interface VacationsProps {
     vacation: VacationModel
 }
 
 export const VacationsCard = (props: VacationsProps): JSX.Element => {
-    console.log(props.vacation);
 
     return (
+        <Col sm="6" xl="4">
         <div className="wrapper">
 
             <Card className="cardMain" style={{ width: '18rem' }}>
@@ -34,6 +36,7 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
                 </Card.Body>
             </Card>
         </div>
+        </Col>
 
 
 

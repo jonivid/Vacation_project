@@ -26,7 +26,6 @@ export const Login = () => {
     const onLoginClicked = async () => {
         try {
             const result = await (axios.post('http://localhost:3001/users/login', { userName, password }))
-            console.log(result);
             let token = "Bearer " + result.data.token
             // relevant if we refresh the page yet still want to stay logged in (loacl storage) => to be continue....
             localStorage.setItem("userToken", token)
@@ -53,21 +52,21 @@ export const Login = () => {
 
     return (
 
-        <body className="bodyLoginPage">
+        <body className="bodyLoginRegisterPage">
 
             <div className="center">
                 <h1>Login Page</h1>
                 <form onSubmit={handleSubmit(onLoginClicked)}>
                     <div className="txtField">
+                        <label>Username</label>
                         <input type="text" name='username' onChange={onUserNameChanged} />
                         <span></span>
-                        <label>Username</label>
                     </div>
                     <br />
                     <div className="txtField">
+                        <label>Password</label>
                         <input type="password" name='password' onChange={onPasswordChanged} />
                         <span></span>
-                        <label>Password</label>
                     </div>
                     <button className="loginBtn" >Login</button>
                     <div className="signUpLink">

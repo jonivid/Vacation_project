@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { VacationsCard } from '../vacations/VacationsCard'
 import './homePage.css'
+import { Container, Row } from 'reactstrap';
 
 export const HomePage = () => {
     const [vacations, setVacations] = useState([])
@@ -23,9 +24,14 @@ export const HomePage = () => {
     }, []);
 
     return (
-        <div className="container">
-            <h1>Homepage</h1>
-            {vacations.map((vacation) => (<VacationsCard vacation={vacation} />))}
+        <div>
+            <h1 className="adminH1">Vacations</h1>
+            <Container >
+                <Row>
+                    {vacations.map((vacation) => (<VacationsCard vacation={vacation} />))}
+                </Row>
+            </Container>
+
         </div>
     )
 }

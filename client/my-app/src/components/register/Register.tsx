@@ -33,7 +33,7 @@ export const Register = () => {
 
     const onIsAdminChange = (event: ChangeEvent<HTMLInputElement>) => {
         setIsAdmin(event.target.value)
-    }
+    } 
 
 
     const onRegisterClick = async () => {
@@ -48,38 +48,47 @@ export const Register = () => {
 
 
     return (
-        <div >
+        <body className="bodyLoginRegisterPage">
 
-            <form className="center" onSubmit={handleSubmit(onRegisterClick)}>
-                <h1>Register Page</h1><br />
-                <div className="form-group">
+            <div className="centerRegister">
 
-                    <div className="form-group">
+                <form onSubmit={handleSubmit(onRegisterClick)}>
+                    <h1>Register Page</h1><br />
+
+
+                    <div className="txtFieldRegister">
                         <label>First name</label><br />
                         <input type="text" name='firstName' className="form-control" placeholder='enter first Name' onChange={onFirstNameChange} /><br />
+                    </div>
+                    <div className="txtFieldRegister">
 
                         <label>Last name</label><br />
                         <input type="text" name='lastName' className="form-control" placeholder='enter last name' onChange={onLastNameChange} /><br />
+                    </div>
+                    <div className="txtFieldRegister">
 
                         <label>Username</label><br />
                         <input type="text" name='username' className="form-control" placeholder='User Name' onChange={onUserNameChanged} /><br />
+                    </div>
+                    <div className="txtFieldRegister">
 
                         <label>Password</label><br />
                         <input type="password" name='password' className="form-control" placeholder='Password' onChange={onPasswordChanged} /><br />
-                        <button className="btn btn-dark btn-lg btn-block">CREATE USER</button>
                     </div>
-                </div>
-                <br />
-                {/* <p>Is Admin (testing only)</p>
+                    <button className="registerBtn">CREATE USER</button>
+
+                    <br />
+                    {/* <p>Is Admin (testing only)</p>
                 <input type="radio" name="isAdmin" value="true" onChange={onIsAdminChange} />
             <label >true</label> */}
-                {/* <input type="radio" name="isAdmin" value="false" onChange={onIsAdminChange} />
+                    {/* <input type="radio" name="isAdmin" value="false" onChange={onIsAdminChange} />
                 <label htmlFor="">false</label><br /> */}
 
 
-                {/* <input type="button" value="Register" onClick={onRegisterClick} /> */}
-            </form >
+                    {/* <input type="button" value="Register" onClick={onRegisterClick} /> */}
+                </form >
 
-        </div>
+            </div>
+        </body>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import UserModel from '../model/UserModel.js'
+import UserModel from '../model/UserModel'
 
 interface UserTableProps {
     user: UserModel

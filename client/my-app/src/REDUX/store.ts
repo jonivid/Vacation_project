@@ -1,17 +1,7 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import {followReducer} from './reducers/follow.reducer'
-import {registerReducer} from './reducers/register.reducer'
-import {userReducer} from './reducers/user.reducer'
-import {vacationReducer} from './reducers/vacation.reducer'
-import thunk from 'redux-thunk'
+import { createStore } from "redux";
+import { reduce } from "./reducer";
+// import { AppState } from "./app-state";
 
-const allReducers = combineReducers({followReducer,registerReducer,userReducer,vacationReducer});
-
-const middleware= [thunk];
-
- export const store = createStore(
-    allReducers,composeWithDevTools(applyMiddleware(...middleware))
-);
-
+// export const store = createStore(reduce, new AppState());
+export const store = createStore(reduce);
 
