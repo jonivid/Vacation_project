@@ -1,0 +1,25 @@
+.changeTableBtn{
+    position: relative;
+    bottom: 10px;
+    margin-top: 30px;
+    width: 300px;
+    height: 50px;
+    border: 1px solid;
+    background: #2691d9 ;
+    border-radius: 25px;
+    font-size: 18px;
+    color: #e9f4fb;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+ }
+ .changeTableBtn:hover{
+    border-color: #2691d9;
+    transition: .5s;
+}
+
+.adminH1 { color: rgb(74, 170, 214); 
+    font-family: 'Helvetica Neue', sans-serif; 
+    font-size: 150px; font-weight: bold; 
+    letter-spacing: -1px; line-height: 1; 
+    text-align: center; }
