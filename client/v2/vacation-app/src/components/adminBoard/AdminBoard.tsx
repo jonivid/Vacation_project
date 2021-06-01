@@ -3,6 +3,8 @@ import axios from 'axios'
 import Table from 'react-bootstrap/Table'
 import { UsersTable } from '../usersTable/UsersTable'
 import { VacationsTable } from '../vacationTable/VacationTable'
+import { Link } from "react-router-dom";
+
 import './adminBoard.css'
 
 
@@ -41,8 +43,8 @@ export const AdminBoard = () => {
     useEffect(() => {
         getUsers()
         getVacations()
-        
-    }, [])
+
+    }, [users,vacations])
 
 
 
@@ -56,7 +58,9 @@ export const AdminBoard = () => {
                 : (
                     <button onClick={isvacationsTableActive} className="changeTableBtn">Vactations table</button>
                 )}
-            <button className="changeTableBtn" >Add Vacation</button>    
+            <Link to='/addvacation'>
+                <button className="changeTableBtn" >Add Vacation</button>
+            </Link>
             {userTable ?
                 (<Table striped bordered hover>
                     <thead>

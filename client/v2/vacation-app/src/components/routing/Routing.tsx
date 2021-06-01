@@ -5,6 +5,7 @@ import { Login } from '../Login/Login'
 import { Register } from '../register/Register'
 import { HomePage } from '../home/HomePage'
 import { AdminBoard } from '../adminBoard/AdminBoard'
+import { AddVacation } from '../addVacationPage/AddVacation'
 
 export const Routing = () => {
     return (
@@ -14,6 +15,7 @@ export const Routing = () => {
                 <Route exact path='/users/login'><Login /></Route>
                 <Route exact path='/users/register'><Register /></Route>
                 <Route exact path='/admin'><AdminBoard /></Route>
+                <Route exact path='/addvacation'><AddVacation /></Route>
                 <Route exact path='/'><Login /></Route>
             </Switch>
         </div>
