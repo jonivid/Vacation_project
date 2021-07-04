@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 
 export const AddVacation = () => {
     const dispatch = useDispatch();
-
     const history = useHistory()
     const { register, handleSubmit, setError, formState: { errors } } = useForm()
     const [destenation, setDestenation] = useState('')
@@ -142,7 +141,7 @@ export const AddVacation = () => {
                             onChange={onImageChange} /><br />
                     </div>
                     <button
-                        type="button"
+                        type="submit"
                         className="addVacationBtn">
                         Add Vacation</button>
                 </form>
