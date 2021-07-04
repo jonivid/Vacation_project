@@ -7,16 +7,15 @@ async function getAll() {
 }
 
 async function register(userRegistrationDetails) {
-    let sql = `INSERT INTO users (first_name, last_name, user_name, password, is_admin)
-    VALUES(?,?,?,?,?);`
-
+    let sql = `INSERT INTO users (first_name, last_name, user_name, password)
+    VALUES(?,?,?,?);`
     let parameters = [userRegistrationDetails.firstName, userRegistrationDetails.lastName, userRegistrationDetails.userName,
     userRegistrationDetails.password, userRegistrationDetails.isAdmin]
     let userRegistrationResult = await connection.executeWithParameters(sql, parameters)
     return userRegistrationResult.insertId;
 }
 async function login(userLoginDetails) {
-    let sql = `SELECT id,is_admin as isAdmin FROM users where user_name =? and password = ?;`
+    let sql = `SELECT id,is_admin as isAdmin, first_name as firstName,last_name as lastName FROM users where user_name =? and password = ?;`
     let parameters = [userLoginDetails.userName, userLoginDetails.password]
     let userLoginResult = await connection.executeWithParameters(sql, parameters)
     if (userLoginResult == null || userLoginResult.length == 0) throw new Error('UNAUTHORIZED login details please try again !!!!!')
@@ -29,16 +28,16 @@ async function update(userRegistrationDetails) {
     let parameters = [userRegistrationDetails.password, userRegistrationDetails.id]
     connection.executeWithParameters(sql, parameters)
 }
-async function deleteUser(id) {
+async function deleteUser(userId) {
     let sql = `DELETE from users where id=?`
-    let parameters = [id];
+    let parameters = [userId];
     await connection.executeWithParameters(sql, parameters)
 }
 
 async function isUserNameExist(userName) {
-    // console.log(userName.userName);
+    console.log(userName);
     let sql = `SELECT user_name from users where user_name=?`
-    parameters = [userName.userName]
+    parameters = [userName]
     const userExistResult = await connection.executeWithParameters(
         sql,
         parameters

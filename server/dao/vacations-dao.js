@@ -6,22 +6,25 @@ async function getAll() {
     return vacations
 
 }
+
 async function createVacation(vacationDetails) {
-    let sql = `INSERT INTO vacations (destenation,details,price,start_date,end_date,followers,image) 
-    Values(?,?,?,?,?,10,?)`
+    let sql = `INSERT INTO vacations (destenation,details,price,start_date,end_date,image) 
+    Values(?,?,?,?,?,?)`
     let parameters = [vacationDetails.destenation, vacationDetails.details, vacationDetails.price, vacationDetails.startDate, vacationDetails.endDate, vacationDetails.image]
     let createVacationResult = await connection.executeWithParameters(sql, parameters)
     return createVacationResult.insertId
 }
 async function updateVacation(vacationDetails) {
-    let sql = `UPDATE vacations SET destenation=?,details=?,price=?,start_date=?,end_date=? ,image=? WHERE id =?;`
-    let parameters = [vacationDetails.destenation, vacationDetails.details, vacationDetails.price, vacationDetails.startDate, vacationDetails.endDate, vacationDetails.id, vacationDetails.image]
+    let sql = `UPDATE vacations SET destenation=?,details=?,price=?,start_date=?,end_date=?,image=?  WHERE id =?;`
+    let parameters = [vacationDetails.destenation, vacationDetails.details, vacationDetails.price, vacationDetails.startDate, vacationDetails.endDate, vacationDetails.image, vacationDetails.id,]
+    console.log(parameters);
     let createVacationResult = await connection.executeWithParameters(sql, parameters)
-    return createVacationResult.insertId
+    // return createVacationResult.insertId
 }
-async function deleteVacation(id) {
+async function deleteVacation(vacationToDelete) {
+    console.log(vacationToDelete);
     let sql = `DELETE from vacations where id=?`
-    let parameters = [id];
+    let parameters = [vacationToDelete];
     await connection.executeWithParameters(sql, parameters)
 }
 

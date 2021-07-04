@@ -3,11 +3,15 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import './addVacation.css'
 import { useHistory } from 'react-router-dom'
+import { addVacation } from '../../redux/vacationsActions'
+import { useDispatch } from "react-redux";
+
 
 export const AddVacation = () => {
-    const history = useHistory()
-    const { handleSubmit } = useForm()
+    const dispatch = useDispatch();
 
+    const history = useHistory()
+    const { register, handleSubmit, setError, formState: { errors } } = useForm()
     const [destenation, setDestenation] = useState('')
     const [details, setDetails] = useState('')
     const [price, setPrice] = useState('')
@@ -43,15 +47,16 @@ export const AddVacation = () => {
 
     const onCreacteVacationClick = async () => {
         try {
-            console.log({ destenation, details, price, startDate, endDate, image });
-            const response = await axios.post('http://localhost:3001/vacations', { destenation, details, price, startDate, endDate, image })
-            history.push('/admin')
+            const vacation = { destenation, details, price, startDate, endDate, image }
+            const response = await axios.post('http://localhost:3001/vacations', vacation)
+            dispatch(addVacation(vacation))
+            history.push('/home')
         }
         catch (err) {
             console.error(err)
         }
-
     }
+
 
     return (
         <body className="createVacationBody">
@@ -61,40 +66,88 @@ export const AddVacation = () => {
                     <h1>add vacation</h1>
                     <div className="txtFieldRegister">
                         <label>Destenation</label><br />
-                        <input type="text" name='destenation' className="form-control" placeholder='enter destenation' onChange={onDestenationChange} /><br />
+                        <input
+                            {...register("destenation", {
+                                required: true, maxLength: 25, minLength: 2
+                            })}
+                            type="text" name='destenation'
+                            className="form-control"
+                            placeholder='enter destenation'
+                            onChange={onDestenationChange} />
+                        {errors.destenation && <p>{errors.destenation.message}</p>}
+
+                        <br />
                     </div>
+
                     <div className="txtFieldRegister" >
                         <label>Details</label><br />
-                        <input  type="textarea" name='details' id="textArea" className="form-control" placeholder='enter details' onChange={onDetailsChange} /><br />
+                        <input
+                            {...register("details", {
+                                required: true, maxLength: 5000, minLength: 1
+                            })}
+                            type="textarea"
+                            name='details'
+                            id="textArea"
+                            className="form-control"
+                            placeholder='enter details'
+                            onChange={onDetailsChange} />
+                        <br />
                     </div>
                     <div className="txtFieldRegister" >
                         <label>Price</label><br />
-                        <input type="text" name='price' className="form-control" placeholder='enter price' onChange={onPriceChange} /><br />
+                        <input
+                            {...register("price", {
+                                required: true, min: 1
+                            })}
+                            type="text"
+                            name='price'
+                            className="form-control"
+                            placeholder='enter price'
+                            onChange={onPriceChange} /><br />
                     </div>
                     <div className="txtFieldRegister" >
                         <label>Start date</label><br />
-                        <input type="date" name='startDate' className="form-control" placeholder='enter start date' onChange={onStartDateChange} min="2021-06-01" /><br />
+                        <input
+                            {...register("startDate", {
+                                required: true
+                            })}
+                            type="date"
+                            name='startDate'
+                            className="form-control"
+                            placeholder='enter start date'
+                            onChange={onStartDateChange} min="2021-06-01" /><br />
                     </div>
                     <div className="txtFieldRegister" >
                         <label>End date</label><br />
-                        <input type="date" name='endDate' className="form-control" placeholder='enter end date' onChange={onEndDateChange} min="2021-06-01" /><br />
+                        <input
+                            {...register("endDate", {
+                                required: true
+                            })}
+                            type="date"
+                            name='endDate'
+                            className="form-control"
+                            placeholder='enter end date'
+                            onChange={onEndDateChange} min="2021-06-01" /><br />
                     </div>
                     <div className="txtFieldRegister" >
                         <label>Image</label><br />
-                        <input type="text" name='image' className="form-control" placeholder='enter image' onChange={onImageChange} /><br />
+                        <input
+                            {...register("test", {
+                                required: true
+                            })}
+                            type="text"
+                            name='image'
+                            className="form-control"
+                            placeholder='enter image'
+                            onChange={onImageChange} /><br />
                     </div>
-                    <button className="addVacationBtn">Add Vacation</button>
+                    <button
+                        type="button"
+                        className="addVacationBtn">
+                        Add Vacation</button>
                 </form>
             </div>
         </body>
     )
 }
 
-// public id!:string;
-// public destenation!:string;
-// public details!:string;
-// public price!:string;
-// public start_date!:string;
-// public end_date!:string;
-// public followers!:string;
-// public image!:string;

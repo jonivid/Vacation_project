@@ -1,50 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Table from 'react-bootstrap/Table'
-import { UsersTable } from '../usersTable/UsersTable'
+import { VacationFollowersCharts } from '../charts/VacationFollowersCharts'
 import { VacationsTable } from '../vacationTable/VacationTable'
 import { Link } from "react-router-dom";
-
 import './adminBoard.css'
+import { useSelector } from 'react-redux'
 
 
 export const AdminBoard = () => {
     const [users, setUsers] = useState([])
-    const [vacations, setVacations] = useState([])
-    const [userTable, setUserTable] = useState(false)
+    const [isChartOn, setIsChartOn] = useState(false)
     const [vacationsTable, setvacationsTable] = useState(true)
 
-    const getUsers = async () => {
-        try {
-            const result = (await axios.get('http://localhost:3001/users')).data
-            setUsers(result)
-        }
-        catch (err) {
-            console.error(err)
-        }
-    }
-    const getVacations = async () => {
-        try {
-            const result = (await axios.get('http://localhost:3001/vacations')).data
-            setVacations(result)
-        }
-        catch (err) {
-            console.error(err)
-        }
-    }
+    const vacations = (useSelector((state: any) => state.vacationsReducer.vacations))
     const isUsersTableActive = () => {
-        setUserTable(!userTable)
+        setIsChartOn(!isChartOn)
         setvacationsTable(!vacationsTable)
     }
     const isvacationsTableActive = () => {
         setvacationsTable(!vacationsTable)
-        setUserTable(!userTable)
+        setIsChartOn(!isChartOn)
     }
-    useEffect(() => {
-        getUsers()
-        getVacations()
 
-    }, [users,vacations])
 
 
 
@@ -54,29 +32,15 @@ export const AdminBoard = () => {
                 AdminBoard
             </h1>
             {vacationsTable ?
-                (<button onClick={isUsersTableActive} className="changeTableBtn">Users table</button>)
+                (<button onClick={isUsersTableActive} className="changeTableBtn">Vacations Chart table</button>)
                 : (
                     <button onClick={isvacationsTableActive} className="changeTableBtn">Vactations table</button>
                 )}
             <Link to='/addvacation'>
                 <button className="changeTableBtn" >Add Vacation</button>
             </Link>
-            {userTable ?
-                (<Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {users.map((user) => (
-                            <UsersTable user={user} />)
-                        )}
-                    </tbody>
-                </Table>)
+            {isChartOn ? <VacationFollowersCharts />
+             
                 : (<Table striped bordered hover>
                     <thead>
                         <tr>
@@ -90,8 +54,8 @@ export const AdminBoard = () => {
                     </thead>
                     <tbody>
 
-                        {vacations.map((vacation) => (
-                            <VacationsTable vacation={vacation} />)
+                        {vacations.map((vacation, index) => (
+                            <VacationsTable vacation={vacation} key={index} />)
                         )}
 
                     </tbody>

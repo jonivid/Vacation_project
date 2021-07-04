@@ -1,0 +1,1 @@
+select  COUNT(*)  from vacations v inner join users_followed_vacations ufv on  ufv.vacation_id=v.id   where v.id="16" 

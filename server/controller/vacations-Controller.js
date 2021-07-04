@@ -3,19 +3,19 @@ const vacationsLogic = require('../logic/vacations-logic')
 const router = express.Router()
 
 //get all vacation
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
     try {
         const vacations = await vacationsLogic.getAll()
         res.json(vacations)
 
     }
-    catch (err) {
-        console.error(err);
+    catch (error) {
+        return next(error);
     }
 
 })
 // create vacation
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
 
     try {
         const vacationDetails = req.body;
@@ -23,13 +23,13 @@ router.post('/', async (req, res) => {
         res.json(vacationId)
 
     }
-    catch (err) {
-        console.error(err);
+    catch (error) {
+        return next(error);
     }
 
 })
 // update vacation
-router.post('/', async (req, res) => {
+router.put('/', async (req, res, next) => {
 
     try {
         const vacationDetails = req.body;
@@ -37,23 +37,20 @@ router.post('/', async (req, res) => {
         res.json(vacationId)
 
     }
-    catch (err) {
-        console.error(err);
+    catch (error) {
+        return next(error);
     }
 
 })
 
-router.delete('/', async (req, res) => {
-    const vacationToDelete = req.body
-
+router.delete('/:vacationId', async (req, res, next) => {
     try {
+        const vacationToDelete = +req.params.vacationId
         await vacationsLogic.deleteVacation(vacationToDelete)
         res.status(200).json(`vacation is deleted `)
     }
-    catch (err) {
-        console.error(err)
-        res.status(404).send(err.message)
-
+    catch (error) {
+        return next(error);
     }
 })
 module.exports = router

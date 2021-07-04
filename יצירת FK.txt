@@ -1,0 +1,4 @@
+ALTER TABLE assignments - הטבלה שמכילה את השילוב
+ADD CONSTRAINT soldiers - הטבלה שממנה ניקח את המקור 
+FOREIGN KEY (soldier_id) - שם האיידי בטבלת השילוב
+REFERENCES soldiers(id) - שם האיידי והמיקום טבלה

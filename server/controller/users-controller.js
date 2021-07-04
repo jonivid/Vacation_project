@@ -7,21 +7,19 @@ let cacheModule = require("../logic/cache-module");
 
 
 //get all user
-router.get('/', async (req, res) => {
+router.get('/', async (req, res,next) => {
     try {
         const users = await usersLogic.getAll()
         res.json(users)
 
     }
-    catch (err) {
-        console.error(err)
-        res.status(600).send(err.message)
+    catch (error) {
+        return next(error);
     }
-
 })
 
 //register user
-router.post('/', async (req, res) => {
+router.post('/', async (req, res,next) => {
     try {
         console.log('register');
         const userRegistrationDetails = req.body;
@@ -29,15 +27,14 @@ router.post('/', async (req, res) => {
         res.json(id)
 
     }
-    catch (err) {
-        console.error(err);
-        res.status(600).send(err.message)
+    catch (error) {
+        return next(error);
     }
 })
 
 ////update password // need more work
 
-router.post('/', (req, res) => {
+router.put('/', (req, res,next) => {
     const id = cacheModule.extractUserDataFromCache(req).id
     //we got the user id ===> need more work
     try {
@@ -46,38 +43,33 @@ router.post('/', (req, res) => {
         usersLogic.update(userDetails)
 
     }
-    catch (err) {
-        console.error(err);
-        res.status(600).send(err.message)
+    catch (error) {
+        return next(error);
     }
 })
 //login user
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res,next) => {
     const userLoginDetails = req.body;
     console.log(userLoginDetails);
     try {
         let succsessfullyLoginData = await usersLogic.login(userLoginDetails)
-        console.log(succsessfullyLoginData);
+        console.log("controller user states", succsessfullyLoginData);
         res.json(succsessfullyLoginData)
 
-    } catch (err) {
-        console.error(err)
-        res.status(600).send(err.message)
-
+    } catch (error) {
+        return next(error);
     }
 })
 
-router.delete('/', async (req, res) => {
-    const userToDelete = req.body
+router.delete('/:userId', async (req, res,next) => {
+    const userId =  +req.params.userId
 
     try {
-        await usersLogic.deleteUser(userToDelete)
+        await usersLogic.deleteUser(userId)
         res.status(200).json(`user is deleted `)
     }
-    catch (err) {
-        console.error(err)
-        res.status(600).send(err.message)
-
+    catch (error) {
+        return next(error);
     }
 })
 

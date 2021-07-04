@@ -13,14 +13,12 @@ async function createVacation(vacationDetails) {
 
 }
 async function updateVacation(vacationDetails) {
-    console.log(vacationDetails);
     const vacationId = await vacationsDao.updateVacation(vacationDetails)
     return vacationId
 
 }
 async function deleteVacation(vacationToDelete) {
-    await vacationsDao.deleteVacation(vacationToDelete.id)
-
+    await vacationsDao.deleteVacation(vacationToDelete)
 }
 
 

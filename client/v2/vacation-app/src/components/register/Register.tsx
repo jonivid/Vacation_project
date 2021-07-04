@@ -8,8 +8,9 @@ import { useHistory } from 'react-router-dom'
 
 
 export const Register = () => {
+
     const history = useHistory()
-    const {  handleSubmit } = useForm()
+    const { register, handleSubmit, setError, formState: { errors } } = useForm()
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [userName, setUserName] = useState('')
@@ -36,12 +37,12 @@ export const Register = () => {
 
     const onIsAdminChange = (event: ChangeEvent<HTMLInputElement>) => {
         setIsAdmin(event.target.value)
-    } 
+    }
 
 
     const onRegisterClick = async () => {
         try {
-            const response =await  axios.post('http://localhost:3001/users', { firstName, lastName, userName, password, isAdmin })
+            const response = await axios.post('http://localhost:3001/users', { firstName, lastName, userName, password, isAdmin })
             history.push('/users/login')
         }
         catch (err) {
@@ -79,8 +80,11 @@ export const Register = () => {
                         <label>Password</label><br />
                         <input type="password" name='password' className="form-control" placeholder='Password' onChange={onPasswordChanged} /><br />
                     </div>
-                    <button className="registerBtn">CREATE USER</button>
 
+                    <button className="registerBtn">CREATE USER</button>
+                    <div className="signUpLink">
+                        Already registered ? <a href="/users/login">Sign in</a>
+                    </div>
                     <br />
                     {/* <p>Is Admin (testing only)</p>
                 <input type="radio" name="isAdmin" value="true" onChange={onIsAdminChange} />
