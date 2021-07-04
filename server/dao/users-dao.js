@@ -7,10 +7,11 @@ async function getAll() {
 }
 
 async function register(userRegistrationDetails) {
+    console.log(userRegistrationDetails);
     let sql = `INSERT INTO users (first_name, last_name, user_name, password)
     VALUES(?,?,?,?);`
     let parameters = [userRegistrationDetails.firstName, userRegistrationDetails.lastName, userRegistrationDetails.userName,
-    userRegistrationDetails.password, userRegistrationDetails.isAdmin]
+    userRegistrationDetails.password]
     let userRegistrationResult = await connection.executeWithParameters(sql, parameters)
     return userRegistrationResult.insertId;
 }
@@ -35,24 +36,24 @@ async function deleteUser(userId) {
 }
 
 async function isUserNameExist(userName) {
-    console.log(userName);
-    let sql = `SELECT user_name from users where user_name=?`
-    parameters = [userName]
-    const userExistResult = await connection.executeWithParameters(
-        sql,
-        parameters
-    );
-
-    console.log('userExistResult: ' + userExistResult);
-
-    if (userExistResult == null || userExistResult.length === 0) {
-        console.log('doesnt exist');
-        return false;
+    try {
+        console.log(userName);
+        let sql = `SELECT user_name from users where user_name=?`
+        parameters = [userName]
+        const userExistResult = await connection.executeWithParameters(
+            sql,
+            parameters);
+        console.log('userExistResult: ' + userExistResult);
+        if (userExistResult == null || userExistResult.length === 0) {
+            console.log('doesnt exist');
+            return false;
+        }
+        console.log('exist');
+        return true;
     }
-    console.log('exist');
-
-    return true;
-
+    catch (err) {
+        throw new Error(`validate userName test failed`)
+    }
 
 }
 

@@ -21,7 +21,6 @@ router.get('/', async (req, res,next) => {
 //register user
 router.post('/', async (req, res,next) => {
     try {
-        console.log('register');
         const userRegistrationDetails = req.body;
         const id = await usersLogic.register(userRegistrationDetails)
         res.json(id)

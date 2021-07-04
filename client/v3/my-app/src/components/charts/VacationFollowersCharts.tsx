@@ -31,8 +31,7 @@ export const VacationFollowersCharts = () => {
 
     return (
         <div>
-            {console.log(data)};
-         
+            
         </div>
     )
 }

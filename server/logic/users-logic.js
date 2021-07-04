@@ -14,15 +14,10 @@ async function getAll() {
 }
 
 async function register(userRegistrationDetails) {
-    validateUserDetails(userRegistrationDetails);
-    console.log(userRegistrationDetails);
-
-    // if (await usersDao.isUserNameExist(userRegistrationDetails)) {
-    //     throw new Error('userName is already exist')
-    // }
-    // userRegistrationDetails.password = crypto.createHash("md5").update(saltLeft + userRegistrationDetails.password + saltRight).digest("hex");
-    // const id = await usersDao.register(userRegistrationDetails)
-    // return id
+    await validateUserDetails(userRegistrationDetails);
+    userRegistrationDetails.password = crypto.createHash("md5").update(saltLeft + userRegistrationDetails.password + saltRight).digest("hex");
+    const id = await usersDao.register(userRegistrationDetails)
+    return id
 
 }
 async function update(userDetails) {
@@ -49,7 +44,7 @@ async function deleteUser(userId) {
 }
 
 
-function validateUserDetails(userRegistrationDetails) {
+async function validateUserDetails(userRegistrationDetails) {
     if (userRegistrationDetails.userName === "") {
         throw new Error(`userName is null`)
     }
@@ -65,9 +60,9 @@ function validateUserDetails(userRegistrationDetails) {
     if (userRegistrationDetails.password.length > 12) {
         throw new Error(`password too long`)
     }
-     if(usersDao.isUserNameExist(userRegistrationDetails.userName)){
+    if (await usersDao.isUserNameExist(userRegistrationDetails.userName)) {
         throw new Error(`userName exists`)
-     }
+    }
 }
 function isEmailFormat(email) {
     const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;

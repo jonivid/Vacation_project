@@ -42,18 +42,18 @@
 }
 
 .delete-btn {
-    position: relative;
-    left: 40px;
-    top: 15px;
+    position: absolute;
+    right: 25px;
+    bottom: 20px;
     display: inline-block;
     background-color: transparent;
     border: 0px transparent;
 }
 
 .edit-btn {
-    position: relative;
+    position: absolute;
     bottom: 15px;
-    right: 120px;
+    right: 175px;
     background-color: transparent;
     border: 0px transparent;
 }

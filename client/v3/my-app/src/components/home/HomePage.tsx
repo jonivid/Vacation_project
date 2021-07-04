@@ -59,22 +59,30 @@ export const HomePage = () => {
                         alignItems: 'center',
                         color: 'white',
                         position: "relative",
+                        height: "fit-content",
                     }}>
                     <Container >
                         <Row>
                             {stateVacations.map((vacation: VacationModel, index: number) => (<VacationsCard vacation={vacation} key={index} />))}
                         </Row>
+
                     </Container>
+                    <div>
+                        <footer>
+                            <h3 className="h3Home">
+                                © 2021 Yehonatan Vidal.  All rights reserved</h3>
+                        </footer>
+                    </div>
                 </ParallaxLayer><br />
                 <ParallaxLayer
-                    offset={2}
+                    offset={3}
                     speed={0.5}
                     style={{
-                        display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                         color: 'white',
-                        backgroundColor: '#cbeff5'
+                        backgroundColor: '#cbeff5',
+                        position: "relative",
                     }}>
                     <div>
                         <footer>
