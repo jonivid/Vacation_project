@@ -66,14 +66,17 @@ export const AddVacation = () => {
                     <div className="txtFieldRegister">
                         <label>Destenation</label><br />
                         <input
-                            // {...register("destenation", {
-                            //     required: true, maxLength: 25, minLength: 2
-                            // })}
+                            {...register("destenation", {
+                                required: true, maxLength: 25, minLength: 2
+                            })}
                             type="text" name='destenation'
                             className="form-control"
                             placeholder='enter destenation'
                             onChange={onDestenationChange} />
-                        {errors.destenation && <p>{errors.destenation.message}</p>}
+                        {errors.destenation?.type === 'required' && "destenation is required"}
+                        {errors.destenation?.type === 'minLength' && "destenation min length 2 "}
+                        {errors.destenation?.type === 'maxLength' && "destenation max length 25 "}
+
 
                         <br />
                     </div>
