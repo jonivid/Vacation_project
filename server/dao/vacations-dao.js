@@ -1,7 +1,8 @@
 const connection = require('./connection-wrapper')
 
 async function getAll() {
-    let sql = `SELECT * from vacations`
+    // SELECT * from vacations
+    let sql = `select vacations.*, count(users_followed_vacations.vacation_id) as followers from vacations left join users_followed_vacations on vacations.id = users_followed_vacations.vacation_id group by vacations.id order by followers desc`
     const vacations = await connection.execute(sql)
     return vacations
 

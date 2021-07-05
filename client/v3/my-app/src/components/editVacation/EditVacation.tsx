@@ -86,7 +86,7 @@ export const EditVacation = () => {
                         <label>Image</label><br />
                         <input type="text" name='image' className="form-control" placeholder='enter image' onChange={onImageChange} value={image} /><br />
                     </div>
-                    <button className="addVacationBtn">Add Vacation</button>
+                    <button className="addVacationBtn">Submit changes</button>
                 </form>
             </div>
         </body>

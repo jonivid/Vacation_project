@@ -16,9 +16,6 @@ import { deleteVacation, vacationToEdit } from '../../redux/vacationsActions'
 import { useHistory } from 'react-router'
 
 
-
-
-
 interface VacationsProps {
     vacation: VacationModel
 }
@@ -31,10 +28,6 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
     const [modalShow, setModalShow] = useState(false)
     const [followed, setFollowed] = useState(false)
     const [followers, setFollowers] = useState('')
-
-
-
-
 
     const getVacationFollowerNum = async () => {
         try {
@@ -149,22 +142,27 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
                 <Card className="cardMain" id="marg" style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={props.vacation.image} />
                     <Card.Body>
-                        <Card.Text>
-                            Followers:{followers}
-                        </Card.Text>
+
                         {!userState.isAdmin && userState.loggedIn ? <IconContext.Provider value={{ color: "red", size: "30", className: "global-class-name" }}>
                             {!followed ? <button className="followIcon" onClick={() => {
                                 followHandle()
                             }}><BsHeart /></button> : <button className="followIcon" onClick={() => {
                                 unFollowHandle()
                             }}><BsFillHeartFill /></button>}
+                            <Card.Text>
+                                <span style={{ color: "black" }}>
+                                    Followers:{followers}
+                                </span>
+                            </Card.Text>
                         </IconContext.Provider> : console.log("admin is connected")
                         }
                         <Card.Title className="vacationDestenation">{props.vacation.destenation}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted"><h6 className="vacationDate">{props.vacation.start_date} - {props.vacation.end_date}</h6></Card.Subtitle>
                         <div >
-                            <Card.Text>
-                                price : {props.vacation.price} $
+                            <Card.Text >
+                                <span style={{ color: "green" }}>
+                                    price : {props.vacation.price} $
+                                </span>
                             </Card.Text>
                             <Button onClick={() => {
                                 setModalShow(true)
@@ -174,22 +172,27 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
                                 show={modalShow}
                                 onHide={() => setModalShow(false)} vacationDetails={props.vacation.details} destanation={props.vacation.destenation} date={`${props.vacation.start_date} - ${props.vacation.end_date}`} />
                         </div>
-                        <div className="delete-btn">
-                            <IconContext.Provider
-                                value={{ color: '#007bff', size: '35px', }}>
-                                <button className="delete-btn" onClick={() => deleteVacationHandle()}><IoTrashBinSharp /></button>
-                            </IconContext.Provider>
-                        </div>
-                        <div className="edit-btn">
-                            <IconContext.Provider
-                                value={{ color: '#007bff', size: '40px', }}>
-                                <button className="delete-btn" onClick={() => editVacationHandle(props.vacation)}><RiEdit2Fill /></button>
-                            </IconContext.Provider>
-                        </div>
+                        {userState.isAdmin && userState.loggedIn ?
+                            <div>
+
+                                <div className="delete-btn">
+                                    <IconContext.Provider
+                                        value={{ color: '#007bff', size: '35px', }}>
+                                        <button className="delete-btn" onClick={() => deleteVacationHandle()}><IoTrashBinSharp /></button>
+                                    </IconContext.Provider>
+                                </div>
+                                <div className="edit-btn">
+                                    <IconContext.Provider
+                                        value={{ color: '#007bff', size: '40px', }}>
+                                        <button className="delete-btn" onClick={() => editVacationHandle(props.vacation)}><RiEdit2Fill /></button>
+                                    </IconContext.Provider>
+                                </div>
+                            </div> : console.log("admin out")}
+
                     </Card.Body>
                 </Card>
             </div>
-        </Col>
+        </Col >
     )
 }
 
