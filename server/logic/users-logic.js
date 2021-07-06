@@ -20,11 +20,7 @@ async function register(userRegistrationDetails) {
     return id
 
 }
-async function update(userDetails) {
-    validateUserDetails(userRegistrationDetails);
-    await usersDao.update(userDetails)
 
-}
 async function login(userLoginDetails) {
     userLoginDetails.password = crypto.createHash("md5").update(saltLeft + userLoginDetails.password + saltRight).digest("hex");
     let userData = await usersDao.login(userLoginDetails)
@@ -74,5 +70,5 @@ function isEmailFormat(email) {
 }
 
 
-module.exports = { register, login, update, deleteUser, getAll }
+module.exports = { register, login, deleteUser, getAll }
 

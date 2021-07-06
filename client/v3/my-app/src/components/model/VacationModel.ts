@@ -1,6 +1,6 @@
 class VacationModel {
   public id!: string;
-  public destenation!: string;
+  public destination!: string;
   public details!: string;
   public price!: string;
   public start_date!: string;

@@ -12,7 +12,7 @@ export const EditVacation = () => {
     const vacationToEdit = useSelector((state: any) => state.vacationsReducer.vacationToEdit)
     const { handleSubmit } = useForm()
     const [id, setId] = useState(vacationToEdit.id)
-    const [destenation, setDestenation] = useState(vacationToEdit.destenation)
+    const [destination, setdestination] = useState(vacationToEdit.destination)
     const [details, setDetails] = useState(vacationToEdit.details)
     const [price, setPrice] = useState(vacationToEdit.price)
     const [startDate, setStartDate] = useState(vacationToEdit.startDate)
@@ -20,9 +20,9 @@ export const EditVacation = () => {
     const [image, setImage] = useState(vacationToEdit.image)
 
 
-    const onDestenationChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const ondestinationChange = (event: ChangeEvent<HTMLInputElement>) => {
 
-        setDestenation(event.target.value)
+        setdestination(event.target.value)
     }
     const onDetailsChange = (event: ChangeEvent<HTMLInputElement>) => {
 
@@ -47,7 +47,7 @@ export const EditVacation = () => {
 
     const onCreacteVacationClick = async () => {
         try {
-            const vacation = { id, destenation, details, price, startDate, endDate, image }
+            const vacation = { id, destination, details, price, startDate, endDate, image }
             const response = await axios.put('http://localhost:3001/vacations', vacation)
             history.push('/home')
         }
@@ -63,8 +63,8 @@ export const EditVacation = () => {
                 <form onSubmit={handleSubmit(onCreacteVacationClick)}>
                     <h1>add vacation</h1>
                     <div className="txtFieldRegister">
-                        <label>Destenation</label><br />
-                        <input type="text" name='destenation' className="form-control" placeholder='enter destenation' onChange={onDestenationChange} value={destenation} /><br />
+                        <label>destination</label><br />
+                        <input type="text" name='destination' className="form-control" placeholder='enter destination' onChange={ondestinationChange} value={destination} /><br />
                     </div>
                     <div className="txtFieldRegister" >
                         <label>Details</label><br />

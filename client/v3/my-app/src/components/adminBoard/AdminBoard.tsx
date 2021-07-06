@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux'
 
 
 export const AdminBoard = () => {
-    const [users, setUsers] = useState([])
     const [isChartOn, setIsChartOn] = useState(false)
     const [vacationsTable, setvacationsTable] = useState(true)
 
@@ -40,21 +39,21 @@ export const AdminBoard = () => {
                 <button className="changeTableBtn" >Add Vacation</button>
             </Link>
             {isChartOn ? <VacationFollowersCharts />
-             
+
                 : (<Table striped bordered hover>
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>destenation</th>
+                            <th>destination</th>
                             <th>price</th>
-                            <th>start_date</th>
-                            <th>end_date</th>
+                            <th>startDate</th>
+                            <th>endDate</th>
                             <th>followers</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        {vacations.map((vacation:any, index:number) => (
+                        {vacations.map((vacation: any, index: number) => (
                             <VacationsTable vacation={vacation} key={index} />)
                         )}
 

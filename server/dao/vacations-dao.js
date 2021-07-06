@@ -9,15 +9,15 @@ async function getAll() {
 }
 
 async function createVacation(vacationDetails) {
-    let sql = `INSERT INTO vacations (destenation,details,price,start_date,end_date,image) 
+    let sql = `INSERT INTO vacations (destination,details,price,start_date,end_date,image) 
     Values(?,?,?,?,?,?)`
-    let parameters = [vacationDetails.destenation, vacationDetails.details, vacationDetails.price, vacationDetails.startDate, vacationDetails.endDate, vacationDetails.image]
+    let parameters = [vacationDetails.destination, vacationDetails.details, vacationDetails.price, vacationDetails.startDate, vacationDetails.endDate, vacationDetails.image]
     let createVacationResult = await connection.executeWithParameters(sql, parameters)
     return createVacationResult.insertId
 }
 async function updateVacation(vacationDetails) {
-    let sql = `UPDATE vacations SET destenation=?,details=?,price=?,start_date=?,end_date=?,image=?  WHERE id =?;`
-    let parameters = [vacationDetails.destenation, vacationDetails.details, vacationDetails.price, vacationDetails.startDate, vacationDetails.endDate, vacationDetails.image, vacationDetails.id,]
+    let sql = `UPDATE vacations SET destination=?,details=?,price=?,start_date=?,end_date=?,image=?  WHERE id =?;`
+    let parameters = [vacationDetails.destination, vacationDetails.details, vacationDetails.price, vacationDetails.startDate, vacationDetails.endDate, vacationDetails.image, vacationDetails.id,]
     console.log(parameters);
     let createVacationResult = await connection.executeWithParameters(sql, parameters)
     // return createVacationResult.insertId

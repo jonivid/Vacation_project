@@ -18,7 +18,7 @@ export const Routing = () => {
                 <Route exact path='/admin'><AdminBoard /></Route>
                 <Route exact path='/addvacation'><AddVacation /></Route>
                 <Route exact path='/editvacation'><EditVacation /></Route>
-                <Route exact path='/'><HomePage /></Route>
+                <Route exact path='/'><Login /></Route>
             </Switch>
         </div>
     )

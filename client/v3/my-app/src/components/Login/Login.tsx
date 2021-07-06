@@ -33,7 +33,8 @@ export const Login = () => {
             // relevant if we refresh the page yet still want to stay logged in (loacl storage) => to be continue....
             localStorage.setItem("userToken", token)
             axios.defaults.headers.common['Authorization'] = token;
-            console.log(axios.defaults.headers.common);
+            // axios.defaults.headers.common.Authorization = token;
+            console.log("axios infosss",axios.defaults.headers.common.Authorization);
 
             history.push('/home')
             const user = { userId: result.data.id, isAdmin: result.data.isAdmin, loggedIn: true, firstName: result.data.firstName, lastName: result.data.lastName }

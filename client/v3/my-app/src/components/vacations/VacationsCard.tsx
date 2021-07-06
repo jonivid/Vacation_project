@@ -90,7 +90,7 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
     const editVacationHandle = async (vacationDetails: any) => {
         const vacationProps = {
             id: vacationDetails.id,
-            destenation: vacationDetails.destenation,
+            destination: vacationDetails.destination,
             details: vacationDetails.details,
             price: vacationDetails.price,
             startDate: vacationDetails.start_date,
@@ -156,7 +156,7 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
                             </Card.Text>
                         </IconContext.Provider> : console.log("admin is connected")
                         }
-                        <Card.Title className="vacationDestenation">{props.vacation.destenation}</Card.Title>
+                        <Card.Title className="vacationdestination">{props.vacation.destination}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted"><h6 className="vacationDate">{props.vacation.start_date} - {props.vacation.end_date}</h6></Card.Subtitle>
                         <div >
                             <Card.Text >
@@ -170,7 +170,7 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
                             }}>more details</Button>
                             <MyVerticallyCenteredModal
                                 show={modalShow}
-                                onHide={() => setModalShow(false)} vacationDetails={props.vacation.details} destanation={props.vacation.destenation} date={`${props.vacation.start_date} - ${props.vacation.end_date}`} />
+                                onHide={() => setModalShow(false)} vacationDetails={props.vacation.details} destanation={props.vacation.destination} date={`${props.vacation.start_date} - ${props.vacation.end_date}`} />
                         </div>
                         {userState.isAdmin && userState.loggedIn ?
                             <div>

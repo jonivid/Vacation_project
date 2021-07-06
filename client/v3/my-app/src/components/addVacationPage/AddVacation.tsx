@@ -11,7 +11,7 @@ export const AddVacation = () => {
     const dispatch = useDispatch();
     const history = useHistory()
     const { register, handleSubmit, setError, formState: { errors } } = useForm()
-    const [destenation, setDestenation] = useState('')
+    const [destination, setdestination] = useState('')
     const [details, setDetails] = useState('')
     const [price, setPrice] = useState('')
     const [startDate, setStartDate] = useState('')
@@ -19,9 +19,9 @@ export const AddVacation = () => {
     const [image, setImage] = useState('')
 
 
-    const onDestenationChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const ondestinationChange = (event: ChangeEvent<HTMLInputElement>) => {
 
-        setDestenation(event.target.value)
+        setdestination(event.target.value)
     }
     const onDetailsChange = (event: ChangeEvent<HTMLInputElement>) => {
 
@@ -46,7 +46,7 @@ export const AddVacation = () => {
 
     const onCreacteVacationClick = async () => {
         try {
-            const vacation = { destenation, details, price, startDate, endDate, image }
+            const vacation = { destination, details, price, startDate, endDate, image }
             const response = await axios.post('http://localhost:3001/vacations', vacation)
             dispatch(addVacation(vacation))
             history.push('/home')
@@ -64,18 +64,18 @@ export const AddVacation = () => {
                 <form onSubmit={handleSubmit(onCreacteVacationClick)}>
                     <h1>add vacation</h1>
                     <div className="txtFieldRegister">
-                        <label>Destenation</label><br />
+                        <label>destination</label><br />
                         <input
-                            {...register("destenation", {
+                            {...register("destination", {
                                 required: true, maxLength: 25, minLength: 2
                             })}
-                            type="text" name='destenation'
+                            type="text" name='destination'
                             className="form-control"
-                            placeholder='enter destenation'
-                            onChange={onDestenationChange} />
-                        {errors.destenation?.type === 'required' && "destenation is required"}
-                        {errors.destenation?.type === 'minLength' && "destenation min length is 2 letters"}
-                        {errors.destenation?.type === 'maxLength' && "destenation max length is 25 letters"}
+                            placeholder='enter destination'
+                            onChange={ondestinationChange} />
+                        {errors.destination?.type === 'required' && "destination is required"}
+                        {errors.destination?.type === 'minLength' && "destination min length is 2 letters"}
+                        {errors.destination?.type === 'maxLength' && "destination max length is 25 letters"}
 
 
                         <br />

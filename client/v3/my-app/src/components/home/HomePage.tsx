@@ -12,7 +12,6 @@ import { Parallax, ParallaxLayer } from '@react-spring/parallax'
 
 export const HomePage = () => {
     const dispatch = useDispatch()
-
     useEffect(() => {
         const getVacations = async () => {
             try {

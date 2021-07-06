@@ -1,7 +1,7 @@
 import { VACATIONS_ACTIONS } from "./actionConfig";
 
 export interface IVacation {
-  destenation: string;
+  destination: string;
   details: string;
   price: any;
   startDate: string;
@@ -9,7 +9,7 @@ export interface IVacation {
   image: string;
 }
 export interface IChartData {
-  destenation: string;
+  destination: string;
   followers: string;
 }
 

@@ -3,7 +3,7 @@ const cors = require('cors')
 const usersController = require('./controller/users-controller')
 const vacationsController = require('./controller/vacations-Controller')
 const handleFollowController = require('./controller/handle-follow-controller')
-const errorHandler= require('./errors/error-handler')
+const errorHandler = require('./errors/error-handler')
 const loginFilter = require('./middleware/login-filter')
 
 const server = express()

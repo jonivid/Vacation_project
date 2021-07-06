@@ -24,11 +24,7 @@ async function login(userLoginDetails) {
     return userLoginResult[0]
     //[0] we write this because sql return an array and we want the first object inside
 }
-async function update(userRegistrationDetails) {
-    let sql = `UPDATE users SET password=? WHERE id = ?;`
-    let parameters = [userRegistrationDetails.password, userRegistrationDetails.id]
-    connection.executeWithParameters(sql, parameters)
-}
+
 async function deleteUser(userId) {
     let sql = `DELETE from users where id=?`
     let parameters = [userId];
@@ -57,4 +53,4 @@ async function isUserNameExist(userName) {
 
 }
 
-module.exports = { register, update, login, deleteUser, isUserNameExist, getAll }
+module.exports = { register, login, deleteUser, isUserNameExist, getAll }

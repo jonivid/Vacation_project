@@ -4,19 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     BarChart,
     Bar,
-   
+
     XAxis,
     YAxis,
     CartesianGrid,
     Tooltip,
-  } from 'recharts';
+} from 'recharts';
 
 export const VacationFollowersCharts = () => {
 
     const result = useSelector((state: any) => state.vacationsReducer.vacations)
     let data: any = [{}]
-    result.map((vacation: { destenation: any; followers: any; }) =>
-        data.push({ vacation: vacation.destenation, followers: vacation.followers, pv: 2400, amt: 2400 })
+    result.map((vacation: { destination: any; followers: any; }) =>
+        data.push({ vacation: vacation.destination, followers: vacation.followers, pv: 2400, amt: 2400 })
     )
 
     return (

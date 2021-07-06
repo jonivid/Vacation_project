@@ -34,7 +34,7 @@ export const VacationsTable = (props: vacationTableProps) => {
             const data = props.vacation
             await axios.delete(`http://localhost:3001/vacations/${data.id}`);
             const filteredVacations = vacations.filter(
-                (vacation:any) => vacation.id !== props.vacation.id)
+                (vacation: any) => vacation.id !== props.vacation.id)
             dispatch(deleteVacation(filteredVacations))
         }
         catch (err) {
@@ -46,7 +46,7 @@ export const VacationsTable = (props: vacationTableProps) => {
         console.log(props.vacation);
         const vacation = {
             id: props.vacation.id,
-            destenation: props.vacation.destenation,
+            destination: props.vacation.destination,
             details: props.vacation.details,
             price: props.vacation.price,
             startDate: props.vacation.start_date,
@@ -65,7 +65,7 @@ export const VacationsTable = (props: vacationTableProps) => {
     return (
         <tr>
             <td>{props.vacation.id}</td>
-            <td>{props.vacation.destenation}</td>
+            <td>{props.vacation.destination}</td>
             <td>{props.vacation.price}</td>
             <td>{props.vacation.start_date}</td>
             <td>{props.vacation.end_date}</td>
