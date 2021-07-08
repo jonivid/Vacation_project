@@ -3,7 +3,6 @@ const crypto = require("crypto");
 let cacheModule = require("./cache-module");
 const jwt = require('jsonwebtoken');
 const config = require('../config.json');
-
 const saltRight = "asdasdasdas";
 const saltLeft = "--mnlcfdsfsds;@!$ ";
 
@@ -26,23 +25,17 @@ async function login(userLoginDetails) {
     let userData = await usersDao.login(userLoginDetails)
     let saltedUserName = saltLeft + userLoginDetails.userName + saltRight
     const jwtToken = jwt.sign({ sub: saltedUserName }, config.secret, { expiresIn: '30m' })
-    console.log("Token before adding to cache : " + jwtToken);
-    console.log("User Data before adding to cache : " + JSON.stringify(userData));
+    // console.log("Token before adding to cache : " + jwtToken);
+    // console.log("User Data before adding to cache : " + JSON.stringify(userData));
     cacheModule.set(jwtToken, userData)//cache setter 
     let successfullLoginResponse = { token: jwtToken, id: userData.id, isAdmin: userData.isAdmin, firstName: userData.firstName, lastName: userData.lastName };
     //need to return isAdmin or not inside successfullLoginResponse to navigate the to homepage or adminBoard
     return successfullLoginResponse;
 }
 
-
-
-
 async function auth(tokenInfo) {
-    // let token = tokenInfo.substring("Bearer ".length);
-    // console.log(token);
-    // const result = cacheModule.get(JSON.stringify(token))
-    // // console.log(token);
-    // console.log(result);
+    let userData = cacheModule.extractUserDataFromCache(tokenInfo)
+    return(userData)
 }
 async function deleteUser(userId) {
     await usersDao.deleteUser(userId);

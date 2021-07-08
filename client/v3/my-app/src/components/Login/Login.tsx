@@ -6,6 +6,7 @@ import './login.css'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setLoggedIn } from '../../redux/userActions'
+import { Auth } from '../auth/Auth'
 
 
 export const Login = () => {
@@ -46,11 +47,12 @@ export const Login = () => {
     }
 
     return (
-
         <div className="bodyLoginRegisterPage">
 
             <div className="center">
                 <h1>Login Page</h1>
+                <span><b>admin:</b>teter4@gmail.com ,12345678 </span><br />
+                <span><b>user:</b>teter2d@gmail.com ,12345678</span>
                 <form onSubmit={handleSubmit(onLoginClicked)}>
                     <div className="txtField">
                         <label>Username</label>

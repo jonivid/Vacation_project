@@ -16,7 +16,6 @@ function authenticateJwtRequestToken(req, res, next) {
         // if the token is valid, i.e the user is present, then in the request we are 
         // attaching the user name, so that it can be used in other action controllers.
         req.user = user
-        req.yoni = true
         // proceeding to the next action controller.
         next();
     })

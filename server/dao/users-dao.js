@@ -20,7 +20,6 @@ async function login(userLoginDetails) {
     let parameters = [userLoginDetails.userName, userLoginDetails.password]
     let userLoginResult = await connection.executeWithParameters(sql, parameters)
     if (userLoginResult == null || userLoginResult.length == 0) throw new Error('UNAUTHORIZED login details please try again !!!!!')
-    console.log('login completed successfully');
     return userLoginResult[0]
     //[0] we write this because sql return an array and we want the first object inside
 }

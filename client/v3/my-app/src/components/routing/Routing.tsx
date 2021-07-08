@@ -7,7 +7,6 @@ import { HomePage } from '../home/HomePage'
 import { AdminBoard } from '../adminBoard/AdminBoard'
 import { AddVacation } from '../addVacationPage/AddVacation'
 import { EditVacation } from '../editVacation/EditVacation'
-import { Auth } from '../auth/Auth'
 
 export const Routing = () => {
     //here we will built
