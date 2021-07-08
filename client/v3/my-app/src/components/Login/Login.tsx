@@ -34,11 +34,10 @@ export const Login = () => {
             localStorage.setItem("userToken", token)
             axios.defaults.headers.common['Authorization'] = token;
             // axios.defaults.headers.common.Authorization = token;
-            console.log("axios infosss",axios.defaults.headers.common.Authorization);
-
-            history.push('/home')
+            console.log("axios infosss", axios.defaults.headers.common.Authorization);
             const user = { userId: result.data.id, isAdmin: result.data.isAdmin, loggedIn: true, firstName: result.data.firstName, lastName: result.data.lastName }
             dispatch(setLoggedIn(user))
+            history.push('/home')
         }
         catch (err) {
             console.error(err)
@@ -48,7 +47,7 @@ export const Login = () => {
 
     return (
 
-        <body className="bodyLoginRegisterPage">
+        <div className="bodyLoginRegisterPage">
 
             <div className="center">
                 <h1>Login Page</h1>
@@ -70,7 +69,7 @@ export const Login = () => {
                     </div>
                 </form>
             </div >
-        </body>
+        </div>
     )
 
 }

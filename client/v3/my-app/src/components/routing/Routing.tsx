@@ -7,10 +7,13 @@ import { HomePage } from '../home/HomePage'
 import { AdminBoard } from '../adminBoard/AdminBoard'
 import { AddVacation } from '../addVacationPage/AddVacation'
 import { EditVacation } from '../editVacation/EditVacation'
+import { Auth } from '../auth/Auth'
 
 export const Routing = () => {
+    //here we will built
     return (
         <div>
+
             <Switch>
                 <Route exact path='/home'><HomePage /></Route>
                 <Route exact path='/users/login'><Login /></Route>
@@ -19,6 +22,7 @@ export const Routing = () => {
                 <Route exact path='/addvacation'><AddVacation /></Route>
                 <Route exact path='/editvacation'><EditVacation /></Route>
                 <Route exact path='/'><Login /></Route>
+                {/* <Route exact path='/'><Auth /></Route> */}
             </Switch>
         </div>
     )

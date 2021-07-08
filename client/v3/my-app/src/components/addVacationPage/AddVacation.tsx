@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 export const AddVacation = () => {
     const dispatch = useDispatch();
     const history = useHistory()
-    const { register, handleSubmit, setError, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const [destination, setdestination] = useState('')
     const [details, setDetails] = useState('')
     const [price, setPrice] = useState('')
@@ -47,7 +47,7 @@ export const AddVacation = () => {
     const onCreacteVacationClick = async () => {
         try {
             const vacation = { destination, details, price, startDate, endDate, image }
-            const response = await axios.post('http://localhost:3001/vacations', vacation)
+            await axios.post('http://localhost:3001/vacations', vacation)
             dispatch(addVacation(vacation))
             history.push('/home')
         }

@@ -1,28 +1,38 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import axios from 'axios'
 import { VacationsCard } from '../vacations/VacationsCard'
 import './homePage.css'
 import { Container, Row } from 'reactstrap';
-import { getAllVactions } from '../../redux/vacationsActions'
+import { getAllVactions, IVacation } from '../../redux/vacationsActions'
 import { useDispatch, useSelector } from "react-redux";
 import { MyCarousel } from '../carousel/MyCarousel';
-import VacationModel from '../model/VacationModel';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax'
+import { useHistory } from 'react-router-dom';
 
 
 export const HomePage = () => {
+    const history = useHistory()
+
     const dispatch = useDispatch()
-    useEffect(() => {
-        const getVacations = async () => {
-            try {
-                const result = await axios.get('http://localhost:3001/vacations')
-                const allVacations = result.data
-                dispatch(getAllVactions(allVacations))
-            }
-            catch (err) {
-                throw err
-            }
+    const userState = useSelector((state: any) => state.userReducer.user)
+    let userId = ''
+    userState ? userId = userState.userId : history.push('/users/login')
+
+    const getVacations = async () => {
+        try {
+            // const result = await axios.get('http://localhost:3001/vacations')
+            // const allVacations = result.data
+            const result2 = await axios.get(`http://localhost:3001/vacations/${userId}`)
+            console.log("extended", result2.data);
+            const allVacations = result2.data
+
+            dispatch(getAllVactions(allVacations))
         }
+        catch (err) {
+            throw err
+        }
+    }
+    useEffect(() => {
         getVacations()
     }, []);
     const stateVacations = useSelector((state: any) => state.vacationsReducer.vacations)
@@ -54,7 +64,7 @@ export const HomePage = () => {
                     }}>
                     <Container >
                         <Row>
-                            {stateVacations.map((vacation: VacationModel, index: number) => (<VacationsCard vacation={vacation} key={index} />))}
+                            {stateVacations.map((vacation: IVacation, index: number) => (<VacationsCard vacation={vacation} key={index} />))}
                         </Row>
 
                     </Container>

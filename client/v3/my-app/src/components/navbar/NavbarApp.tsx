@@ -1,6 +1,6 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoggedOut } from '../../redux/userActions'
 import './navbar.css'
@@ -9,9 +9,10 @@ import './navbar.css'
 
 
 export const NavbarApp = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
-    const userConnectionState = useSelector((state: any) => state.userReducer.user)
-    const { loggedIn, firstName, lastName } = userConnectionState
+    const userConnectionState = useSelector((state: any) => state.userReducer.user) || {}
+    const { loggedIn, firstName } = userConnectionState
 
     const logOut = () => {
         const user = {
@@ -22,6 +23,11 @@ export const NavbarApp = () => {
 
         }
         dispatch(setLoggedOut(user))
+        history.push('/home')
+
+        //@ts-ignore
+        window.location.reload(false);
+
     }
     return (
         <div>
@@ -39,9 +45,9 @@ export const NavbarApp = () => {
                             </>)
                             : (
                                 console.log("admin is not connected")
-                                )}
-                                
-                                {!loggedIn ? <Nav.Link as={Link} to='/users/login'>Login</Nav.Link> : <Nav.Link as={Link} to='/users/login' onClick={() => logOut()}>Logout</Nav.Link>}
+                            )}
+
+                        {!loggedIn ? <Nav.Link as={Link} to='/users/login'>Login</Nav.Link> : <Nav.Link as={Link} to='/users/login' onClick={() => logOut()}>Logout</Nav.Link>}
                     </Nav>
                     <Nav>
 

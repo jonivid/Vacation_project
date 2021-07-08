@@ -34,6 +34,16 @@ async function login(userLoginDetails) {
     return successfullLoginResponse;
 }
 
+
+
+
+async function auth(tokenInfo) {
+    // let token = tokenInfo.substring("Bearer ".length);
+    // console.log(token);
+    // const result = cacheModule.get(JSON.stringify(token))
+    // // console.log(token);
+    // console.log(result);
+}
 async function deleteUser(userId) {
     await usersDao.deleteUser(userId);
 
@@ -70,5 +80,5 @@ function isEmailFormat(email) {
 }
 
 
-module.exports = { register, login, deleteUser, getAll }
+module.exports = { register, login, deleteUser, getAll, auth }
 

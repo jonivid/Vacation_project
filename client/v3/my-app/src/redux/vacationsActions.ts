@@ -1,12 +1,15 @@
 import { VACATIONS_ACTIONS } from "./actionConfig";
 
 export interface IVacation {
+  id?: number;
   destination: string;
   details: string;
   price: any;
   startDate: string;
   endDate: string;
   image: string;
+  followers?: number;
+  isUserFollow?: number;
 }
 export interface IChartData {
   destination: string;
@@ -26,19 +29,19 @@ export function vacationToEdit(payload: IVacation) {
   };
 }
 
-export function getAllVactions(payload: Array<any>) {
+export function getAllVactions(payload: IVacation[]) {
   return {
     type: VACATIONS_ACTIONS.GET_ALL_VACATIONS,
     payload,
   };
 }
-export function deleteVacation(payload: Array<any>) {
+export function deleteVacation(payload: IVacation[]) {
   return {
     type: VACATIONS_ACTIONS.DELETE_VACATION,
     payload,
   };
 }
-export function setVacationsChartData(payload: Array<any>) {
+export function setVacationsChartData(payload: IVacation[]) {
   return {
     type: VACATIONS_ACTIONS.SET_VACTIONS_CHART_DATA,
     payload,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import VacationModel from '../model/VacationModel'
+// import VacationModel from '../model/VacationModel'
 import Card from 'react-bootstrap/Card'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
@@ -12,27 +12,27 @@ import { RiEdit2Fill } from "react-icons/ri"
 import { IconContext } from "react-icons";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
-import { deleteVacation, vacationToEdit } from '../../redux/vacationsActions'
+import { deleteVacation, IVacation, vacationToEdit } from '../../redux/vacationsActions'
 import { useHistory } from 'react-router'
 
-
 interface VacationsProps {
-    vacation: VacationModel
+    vacation: IVacation;
 }
 
 export const VacationsCard = (props: VacationsProps): JSX.Element => {
     const history = useHistory()
     const dispatch = useDispatch()
     const userState = useSelector((state: any) => state.userReducer.user)
-    const vacations = (useSelector((state: any) => state.vacationsReducer.vacations))
+    let vacations = (useSelector((state: any) => state.vacationsReducer.vacations))
     const [modalShow, setModalShow] = useState(false)
-    const [followed, setFollowed] = useState(false)
-    const [followers, setFollowers] = useState('')
+    const [followed, setFollowed] = useState(props.vacation.isUserFollow === userState.userId)
+    const [followers, setFollowers] = useState(props.vacation.followers)
 
     const getVacationFollowerNum = async () => {
         try {
             const result = await axios.get(`http://localhost:3001/follow/vacationFollow/${props.vacation.id}`)
             setFollowers(result.data[0].followers)
+
         }
         catch (err) {
         }
@@ -45,32 +45,30 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
             }
         }
         catch (err) {
+            alert(err);
         }
     }
-    getIsUserFollowVacationState()
-
     const followHandle = async () => {
         try {
             const details = { userId: userState.userId, vacationId: props.vacation.id }
             await axios.post(`http://localhost:3001/follow/`, details)
-            getVacationFollowerNum()
-            getIsUserFollowVacationState()
+            await getVacationFollowerNum()
+            await getIsUserFollowVacationState()
             setFollowed(true)
         }
         catch (err) {
-
+            alert(err);
         }
     }
     const unFollowHandle = async () => {
         try {
             await axios.delete(`http://localhost:3001/follow/${userState.userId}/${props.vacation.id}`)
-            getVacationFollowerNum()
-            getIsUserFollowVacationState()
+            await getVacationFollowerNum()
+            await getIsUserFollowVacationState()
             setFollowed(false)
-
         }
         catch (err) {
-
+            alert(err);
         }
     }
     const deleteVacationHandle = async () => {
@@ -79,7 +77,6 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
             await axios.delete(`http://localhost:3001/vacations/${data.id}`);
             const filteredVacations = vacations.filter(
                 (vacation: any) => vacation.id !== data.id)
-            console.log(filteredVacations);
             dispatch(deleteVacation(filteredVacations))
         }
         catch (err) {
@@ -93,20 +90,16 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
             destination: vacationDetails.destination,
             details: vacationDetails.details,
             price: vacationDetails.price,
-            startDate: vacationDetails.start_date,
-            endDate: vacationDetails.end_date,
-            image: vacationDetails.image
+            startDate: vacationDetails.startDate,
+            endDate: vacationDetails.endDate,
+            image: vacationDetails.image,
         }
         dispatch(vacationToEdit(vacationProps))
         history.push('/editvacation')
 
     }
 
-    useEffect(() => {
-        getVacationFollowerNum()
-        getIsUserFollowVacationState()
 
-    }, []);
 
     const MyVerticallyCenteredModal = (props: any) => {
         return (
@@ -154,10 +147,10 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
                                     Followers:{followers}
                                 </span>
                             </Card.Text>
-                        </IconContext.Provider> : console.log("admin is connected")
+                        </IconContext.Provider> : <span></span>
                         }
                         <Card.Title className="vacationdestination">{props.vacation.destination}</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted"><h6 className="vacationDate">{props.vacation.start_date} - {props.vacation.end_date}</h6></Card.Subtitle>
+                        <Card.Subtitle className="mb-2 text-muted"><h6 className="vacationDate">{props.vacation.startDate} - {props.vacation.endDate}</h6></Card.Subtitle>
                         <div >
                             <Card.Text >
                                 <span style={{ color: "green" }}>
@@ -170,7 +163,7 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
                             }}>more details</Button>
                             <MyVerticallyCenteredModal
                                 show={modalShow}
-                                onHide={() => setModalShow(false)} vacationDetails={props.vacation.details} destanation={props.vacation.destination} date={`${props.vacation.start_date} - ${props.vacation.end_date}`} />
+                                onHide={() => setModalShow(false)} vacationDetails={props.vacation.details} destanation={props.vacation.destination} date={`${props.vacation.startDate} - ${props.vacation.endDate}`} />
                         </div>
                         {userState.isAdmin && userState.loggedIn ?
                             <div>
@@ -187,7 +180,7 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
                                         <button className="delete-btn" onClick={() => editVacationHandle(props.vacation)}><RiEdit2Fill /></button>
                                     </IconContext.Provider>
                                 </div>
-                            </div> : console.log("admin out")}
+                            </div> : <span></span>}
 
                     </Card.Body>
                 </Card>
@@ -195,5 +188,7 @@ export const VacationsCard = (props: VacationsProps): JSX.Element => {
         </Col >
     )
 }
+
+
 
 

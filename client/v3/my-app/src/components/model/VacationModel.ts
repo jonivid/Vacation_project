@@ -3,8 +3,8 @@ class VacationModel {
   public destination!: string;
   public details!: string;
   public price!: string;
-  public start_date!: string;
-  public end_date!: string;
+  public startDate!: string;
+  public endDate!: string;
   public followers!: string;
   public image!: string;
 }

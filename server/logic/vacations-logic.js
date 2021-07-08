@@ -5,6 +5,10 @@ async function getAll() {
     const vacations = await vacationsDao.getAll()
     return (vacations)
 }
+async function getAllExtended(userId) {
+    const vacations = await vacationsDao.getAllExtended(userId)
+    return (vacations)
+}
 
 async function createVacation(vacationDetails) {
     console.log(vacationDetails);
@@ -22,4 +26,4 @@ async function deleteVacation(vacationToDelete) {
 }
 
 
-module.exports = { getAll, createVacation, updateVacation, deleteVacation }
+module.exports = { getAll, createVacation, updateVacation, deleteVacation,getAllExtended }

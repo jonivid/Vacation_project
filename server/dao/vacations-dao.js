@@ -8,6 +8,17 @@ async function getAll() {
 
 }
 
+async function getAllExtended(userId) {
+    let sql = `select v.id , v.destination ,v.details,v.image,v.price,v.start_date as startDate, v.end_date as endDate ,users_followed_vacations.user_id as isUserFollow,
+    (select COUNT(*) from users_followed_vacations where users_followed_vacations.vacation_id = v.id) AS followers
+    from vacations v
+    left join users_followed_vacations
+    ON v.id=users_followed_vacations.vacation_id && users_followed_vacations.user_id= ?
+    ORDER BY users_followed_vacations.user_id DESC;`
+    let parameters = [userId]
+    let vacations = await connection.executeWithParameters(sql, parameters)
+    return vacations
+}
 async function createVacation(vacationDetails) {
     let sql = `INSERT INTO vacations (destination,details,price,start_date,end_date,image) 
     Values(?,?,?,?,?,?)`
@@ -29,4 +40,4 @@ async function deleteVacation(vacationToDelete) {
     await connection.executeWithParameters(sql, parameters)
 }
 
-module.exports = { getAll, createVacation, updateVacation, deleteVacation }
+module.exports = { getAll, createVacation, updateVacation, deleteVacation, getAllExtended }

@@ -53,4 +53,14 @@ router.delete('/:vacationId', async (req, res, next) => {
         return next(error);
     }
 })
+router.get('/:userId', async (req, res, next) => {
+    try {
+        const userId = +req.params.userId
+        const vacations = await vacationsLogic.getAllExtended(userId)  
+        res.json(vacations)
+    }
+    catch (error) {
+        return next(error);
+    }
+})
 module.exports = router

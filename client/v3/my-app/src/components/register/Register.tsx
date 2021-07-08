@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom'
 export const Register = () => {
 
     const history = useHistory()
-    const { register, handleSubmit, setError, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [userName, setUserName] = useState('')
@@ -39,7 +39,7 @@ export const Register = () => {
 
     const onRegisterClick = async () => {
         try {
-            const response = await axios.post('http://localhost:3001/users', { firstName, lastName, userName, password })
+            await axios.post('http://localhost:3001/users', { firstName, lastName, userName, password })
             history.push('/users/login')
         }
         catch (err) {
@@ -50,7 +50,7 @@ export const Register = () => {
 
 
     return (
-        <body className="bodyLoginRegisterPage">
+        <div className="bodyLoginRegisterPage">
 
             <div className="centerRegister">
 
@@ -135,6 +135,6 @@ export const Register = () => {
                 </form >
 
             </div>
-        </body>
+        </div>
     )
 }

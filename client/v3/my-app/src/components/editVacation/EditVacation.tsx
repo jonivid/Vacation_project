@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 // import './addVacation.css'
 import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 export const EditVacation = () => {
@@ -11,7 +11,7 @@ export const EditVacation = () => {
     const history = useHistory()
     const vacationToEdit = useSelector((state: any) => state.vacationsReducer.vacationToEdit)
     const { handleSubmit } = useForm()
-    const [id, setId] = useState(vacationToEdit.id)
+    const id = vacationToEdit.id
     const [destination, setdestination] = useState(vacationToEdit.destination)
     const [details, setDetails] = useState(vacationToEdit.details)
     const [price, setPrice] = useState(vacationToEdit.price)
@@ -48,7 +48,7 @@ export const EditVacation = () => {
     const onCreacteVacationClick = async () => {
         try {
             const vacation = { id, destination, details, price, startDate, endDate, image }
-            const response = await axios.put('http://localhost:3001/vacations', vacation)
+            await axios.put('http://localhost:3001/vacations', vacation)
             history.push('/home')
         }
         catch (err) {
