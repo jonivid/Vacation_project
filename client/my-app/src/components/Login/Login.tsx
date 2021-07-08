@@ -4,12 +4,16 @@ import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import './login.css'
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setLoggedIn } from '../../redux/userActions'
+import { Auth } from '../auth/Auth'
 
 
 export const Login = () => {
     const history = useHistory()
+    const dispatch = useDispatch()
 
-    const { register, handleSubmit } = useForm()
+    const { handleSubmit } = useForm()
 
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
@@ -30,15 +34,11 @@ export const Login = () => {
             // relevant if we refresh the page yet still want to stay logged in (loacl storage) => to be continue....
             localStorage.setItem("userToken", token)
             axios.defaults.headers.common['Authorization'] = token;
-
-            if (result.data.isAdmin) {
-                //go to admin page
-                history.push('/admin')
-            }
-            else {
-                //go to customer page
-                history.push('/home');
-            }
+            // axios.defaults.headers.common.Authorization = token;
+            console.log("axios infosss", axios.defaults.headers.common.Authorization);
+            const user = { userId: result.data.id, isAdmin: result.data.isAdmin, loggedIn: true, firstName: result.data.firstName, lastName: result.data.lastName }
+            dispatch(setLoggedIn(user))
+            history.push('/home')
         }
         catch (err) {
             console.error(err)
@@ -46,16 +46,13 @@ export const Login = () => {
         }
     }
 
-
-
-
-
     return (
-
-        <body className="bodyLoginRegisterPage">
+        <div className="bodyLoginRegisterPage">
 
             <div className="center">
                 <h1>Login Page</h1>
+                <span><b>admin:</b>teter4@gmail.com ,12345678 </span><br />
+                <span><b>user:</b>teter2d@gmail.com ,12345678</span>
                 <form onSubmit={handleSubmit(onLoginClicked)}>
                     <div className="txtField">
                         <label>Username</label>
@@ -74,7 +71,7 @@ export const Login = () => {
                     </div>
                 </form>
             </div >
-        </body>
+        </div>
     )
 
 }
