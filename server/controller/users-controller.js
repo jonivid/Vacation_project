@@ -2,6 +2,7 @@ const express = require('express')
 const usersLogic = require('../logic/users-logic')
 const router = express.Router()
 
+// get user by token
 router.get('/:tokenInfo', async (req, res, next) => {
     try {
         const tokenInfo = req.params.tokenInfo
@@ -15,7 +16,7 @@ router.get('/:tokenInfo', async (req, res, next) => {
     }
 })
 
-
+//register new user
 router.post('/', async (req, res, next) => {
     try {
         const userRegistrationDetails = req.body;
@@ -27,17 +28,19 @@ router.post('/', async (req, res, next) => {
         return next(error);
     }
 })
+//user login
 router.post('/login', async (req, res, next) => {
     const userLoginDetails = req.body;
     try {
         let succsessfullyLoginData = await usersLogic.login(userLoginDetails)
+        console.log(succsessfullyLoginData);
         res.json(succsessfullyLoginData)
 
     } catch (error) {
         return next(error);
     }
 })
-
+//delete user => for future coding....
 router.delete('/:userId', async (req, res, next) => {
     const userId = +req.params.userId
 

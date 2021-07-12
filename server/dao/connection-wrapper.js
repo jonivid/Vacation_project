@@ -1,5 +1,3 @@
-// let ServerError = require("./../errors/server-error");
-// let ErrorType = require("./../errors/error-type");
 const mysql = require("mysql2");
 
 // Connection = קו תקשורת למסד הנתונים

@@ -25,11 +25,8 @@ async function login(userLoginDetails) {
     let userData = await usersDao.login(userLoginDetails)
     let saltedUserName = saltLeft + userLoginDetails.userName + saltRight
     const jwtToken = jwt.sign({ sub: saltedUserName }, config.secret, { expiresIn: '30m' })
-    // console.log("Token before adding to cache : " + jwtToken);
-    // console.log("User Data before adding to cache : " + JSON.stringify(userData));
     cacheModule.set(jwtToken, userData)//cache setter 
     let successfullLoginResponse = { token: jwtToken, id: userData.id, isAdmin: userData.isAdmin, firstName: userData.firstName, lastName: userData.lastName };
-    //need to return isAdmin or not inside successfullLoginResponse to navigate the to homepage or adminBoard
     return successfullLoginResponse;
 }
 

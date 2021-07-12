@@ -11,22 +11,17 @@ import { useHistory } from 'react-router-dom';
 
 
 export const HomePage = () => {
-    const history = useHistory()
-
-    const dispatch = useDispatch()
-    const userState = useSelector((state: any) => state.userReducer.user)
-    let userId = ''
-    userState ? userId = userState.userId : history.push('/users/login')
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const userState = useSelector((state: any) => state.userReducer.user);
+    let userId = '';
+    userState ? userId = userState.userId : history.push('/users/login');
 
     const getVacations = async () => {
         try {
-            // const result = await axios.get('http://localhost:3001/vacations')
-            // const allVacations = result.data
-            const result2 = await axios.get(`http://localhost:3001/vacations/${userId}`)
-            console.log("extended", result2.data);
-            const allVacations = result2.data
-
-            dispatch(getAllVactions(allVacations))
+            const result2 = await axios.get(`http://localhost:3001/vacations`);
+            const allVacations = result2.data;
+            dispatch(getAllVactions(allVacations));
         }
         catch (err) {
             throw err

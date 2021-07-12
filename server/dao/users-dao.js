@@ -1,9 +1,9 @@
 const connection = require('./connection-wrapper')
+
 async function getAll() {
     let sql = `SELECT * from users`
     const users = await connection.execute(sql)
     return users
-
 }
 
 async function register(userRegistrationDetails) {
@@ -15,6 +15,7 @@ async function register(userRegistrationDetails) {
     let userRegistrationResult = await connection.executeWithParameters(sql, parameters)
     return userRegistrationResult.insertId;
 }
+
 async function login(userLoginDetails) {
     let sql = `SELECT id,is_admin as isAdmin, first_name as firstName,last_name as lastName FROM users where user_name =? and password = ?;`
     let parameters = [userLoginDetails.userName, userLoginDetails.password]

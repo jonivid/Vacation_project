@@ -13,6 +13,7 @@ router.get("/vacationFollow/:vacationId", async (req, res, next) => {
         return next(error);
     }
 })
+// get if user follow vacation
 router.get("/:userId/:vacationId", async (req, res, next) => {
     try {
         const { userId, vacationId } = req.params

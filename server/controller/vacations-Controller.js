@@ -1,19 +1,9 @@
 const express = require('express')
 const vacationsLogic = require('../logic/vacations-logic')
 const router = express.Router()
+let cacheModule = require("../logic/cache-module");
 
-//get all vacation
-router.get('/', async (req, res, next) => {
-    try {
-        const vacations = await vacationsLogic.getAll()
-        res.json(vacations)
 
-    }
-    catch (error) {
-        return next(error);
-    }
-
-})
 // create vacation
 router.post('/', async (req, res, next) => {
 
@@ -35,14 +25,12 @@ router.put('/', async (req, res, next) => {
         const vacationDetails = req.body;
         const vacationId = await vacationsLogic.updateVacation(vacationDetails)
         res.json(vacationId)
-
     }
     catch (error) {
         return next(error);
     }
-
 })
-
+//delete vacation
 router.delete('/:vacationId', async (req, res, next) => {
     try {
         const vacationToDelete = +req.params.vacationId
@@ -53,10 +41,12 @@ router.delete('/:vacationId', async (req, res, next) => {
         return next(error);
     }
 })
-router.get('/:userId', async (req, res, next) => {
+//get all vacations by userId
+router.get('/', async (req, res, next) => {
     try {
-        const userId = +req.params.userId
-        const vacations = await vacationsLogic.getAllExtended(userId)  
+        let authorizationString = req.headers["authorization"]
+        let userData = cacheModule.extractUserDataFromCache(authorizationString)
+        const vacations = await vacationsLogic.getAllExtended(userData.id)
         res.json(vacations)
     }
     catch (error) {
