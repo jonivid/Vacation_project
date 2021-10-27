@@ -8,7 +8,17 @@ const loginFilter = require('./middleware/login-filter')
 
 const server = express()
 
-server.use(cors({ origin: 'http://localhost:3000' }))
+const whitelist = ['http://localhost:3000', 'https://vacation-client.herokuapp.com']
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+server.use(cors(corsOptions))
 server.use(express.json())
 server.use('/users', usersController)
 server.use(loginFilter)
