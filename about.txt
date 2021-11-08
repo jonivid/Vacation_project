@@ -1,0 +1,10 @@
+In this project i was assigned to create a system that will let users follow vacations.
+every user that will signIn successfully could see list of vacations and follow them .
+inside the system there are two kinds of permissions:
+1. admin - incharge of managing the vacation DB : add ,edit and delete.
+2. user - can signUp to create a new user , can signIn with existing user details , and after login can follow and unfollow vacations.
+
+In server side i used Nodejs and express as api , and with the DB i used MySql.
+In client side i used React.js and Redux .
+
+Personally had a lot of fun doing this project,i got the chance of learning new methods and abilities that i didnt knew before. although some parts of the project were difficults at first, but after some researching and practicing i got to the solution i needed.
